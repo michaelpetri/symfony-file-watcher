@@ -35,4 +35,4 @@ bin/console messenger:consume my-file-watcher
 
 [![Lyska.cloud](https://avatars.githubusercontent.com/u/82085619?s=400&u=bf1fb2d6dec05e5911a190964568903b7a795592&v=4)](https://lyska.cloud)
 
-We are on a mission to streamline B2B purchasing processes. By simplifying and speed up sales, using cutting-edge technology and process automation.
+By using cutting-edge technology, process automation and taking responsibility for integration, synchronization, quality and consistency of your data.
