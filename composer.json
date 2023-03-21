@@ -21,7 +21,7 @@
         "friendsofphp/php-cs-fixer": "^3.15.1",
         "phpunit/phpunit": "^9.6.5",
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "^4.30"
+        "vimeo/psalm": "^5.8"
     },
     "autoload": {
         "psr-4": {
