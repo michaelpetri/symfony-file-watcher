@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
 
-final class FilesystemEventBundle extends Bundle
+final class FileWatcherBundle extends Bundle
 {
     public function build(ContainerBuilder $container): void
     {
