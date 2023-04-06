@@ -5,15 +5,21 @@ declare(strict_types=1);
 namespace MichaelPetri\SymfonyFileWatcher\Infrastructure\Transport;
 
 use MichaelPetri\Git\Value\Directory;
+use MichaelPetri\Git\Value\Duration;
 
 /** @psalm-immutable */
 final class Dsn
 {
+    private const DEFAULT_OPTIONS = [
+        'timeout' => 60000
+    ];
+
     private const ERROR = 'The given file watcher DSN "%s" is invalid: %s';
     public const SCHEME = 'watch://';
 
     public function __construct(
-        public readonly Directory $directory
+        public readonly Directory $directory,
+        public readonly Duration $timeout
     ) {
     }
 
@@ -24,20 +30,36 @@ final class Dsn
             throw new \InvalidArgumentException(\sprintf(self::ERROR, $dsn, 'Invalid scheme.'));
         }
 
-        // Cut off scheme to get path.
-        $path = \substr($dsn, \strlen(self::SCHEME));
+        // File uri's don't require a host, so we just add one here to use php's internal parse url function.
+        $dsnWithFakeHost = \str_replace(self::SCHEME, self::SCHEME . 'localhost', $dsn);
+
+        if (false === $components = \parse_url($dsnWithFakeHost)) {
+            throw new \InvalidArgumentException(\sprintf(self::ERROR, $dsn, 'Malformed string.'));
+        }
+
+        // Use parsed path or current directory as fallback.
+        $path = $components['path'] ?? \realpath('.');
 
         // Resolve absolute real path.
         if ($realPath = \realpath($path)) {
             $path = $realPath;
         }
 
-        try {
-            return new self(
-                Directory::from($path)
-            );
-        } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException(\sprintf(self::ERROR, $dsn, 'Invalid path.'), 0, $e);
+        $query = [];
+        if (isset($components['query'])) {
+            \parse_str($components['query'], $query);
         }
+
+        // Use parsed timeout or default fallback.
+        $timeout = (int) ($query['timeout'] ?? self::DEFAULT_OPTIONS['timeout']);
+
+        if (0 >= $timeout) {
+            throw new \InvalidArgumentException(\sprintf(self::ERROR, $dsn, 'Timeout options must be positive int.'));
+        }
+
+        return new self(
+            Directory::from($path),
+            Duration::inMilliseconds($timeout)
+        );
     }
 }

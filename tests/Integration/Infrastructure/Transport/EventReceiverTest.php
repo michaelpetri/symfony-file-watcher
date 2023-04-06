@@ -8,6 +8,7 @@ use MichaelPetri\Git\GitRepository;
 use MichaelPetri\Git\GitRepositoryInterface;
 use MichaelPetri\Git\Value\Change;
 use MichaelPetri\Git\Value\Directory;
+use MichaelPetri\Git\Value\Duration;
 use MichaelPetri\Git\Value\File;
 use MichaelPetri\Git\Value\Status;
 use MichaelPetri\SymfonyFileWatcher\Domain\Event\FileChanged;
@@ -37,7 +38,7 @@ final class EventReceiverTest extends TestCase
         $p = new Process(['mkdir', '-p', $this->directory->path]);
         $p->mustRun();
 
-        $this->repository = new GitRepository($this->directory);
+        $this->repository = new GitRepository($this->directory, Duration::inSeconds(60));
         $this->receiver = new EventReceiver($this->repository);
 
         $this->receiver->setup();

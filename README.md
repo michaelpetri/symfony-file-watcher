@@ -23,7 +23,7 @@ composer require michaelpetri/symfony-file-watcher
 # messenger.yaml
 transports:
   my-file-watcher:
-    dsn: 'watch:///absolute/path/to/files'
+    dsn: 'watch:///absolute/path/to/files?timeout=60000' # timeout in milliseconds
 ```
 
 ```shell

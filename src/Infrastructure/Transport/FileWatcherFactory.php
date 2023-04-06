@@ -13,9 +13,12 @@ final class FileWatcherFactory implements TransportFactoryInterface
 {
     public function createTransport(string $dsn, array $options = [], ?SerializerInterface $serializer = null): TransportInterface
     {
+        $dsn = Dsn::fromString($dsn);
+
         return new EventReceiver(
             new GitRepository(
-                Dsn::fromString($dsn)->directory
+                $dsn->directory,
+                $dsn->timeout
             )
         );
     }
