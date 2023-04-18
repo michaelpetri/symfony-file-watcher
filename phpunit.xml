@@ -5,11 +5,11 @@
          colors="true"
          failOnWarning="true"
          failOnRisky="true">
-  <coverage>
+  <source>
     <include>
       <directory>src</directory>
     </include>
-  </coverage>
+  </source>
   <php>
     <ini name="error_reporting" value="-1"/>
   </php>
