@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25b05040ac6456a87020192157afe541",
+    "content-hash": "05013576c007b3e71b262fe09efbc176",
     "packages": [
         {
             "name": "michaelpetri/php-generic-list",
@@ -54,16 +54,16 @@
         },
         {
             "name": "michaelpetri/php-git",
-            "version": "0.3.1",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/michaelpetri/php-git.git",
-                "reference": "9ce29012518bc5b73d6dbfc470d0cec804582d3c"
+                "reference": "353d14cb6cc090fa60caff651fee69784cef5b4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michaelpetri/php-git/zipball/9ce29012518bc5b73d6dbfc470d0cec804582d3c",
-                "reference": "9ce29012518bc5b73d6dbfc470d0cec804582d3c",
+                "url": "https://api.github.com/repos/michaelpetri/php-git/zipball/353d14cb6cc090fa60caff651fee69784cef5b4e",
+                "reference": "353d14cb6cc090fa60caff651fee69784cef5b4e",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.15.1",
-                "phpunit/phpunit": "^10.0.18",
+                "phpunit/phpunit": "^10.1.1",
                 "roave/security-advisories": "dev-latest",
                 "vimeo/psalm": "^5.8.0"
             },
@@ -96,9 +96,9 @@
             "description": "Simple wrapper around git cli, based on symfony/process.",
             "support": {
                 "issues": "https://github.com/michaelpetri/php-git/issues",
-                "source": "https://github.com/michaelpetri/php-git/tree/0.3.1"
+                "source": "https://github.com/michaelpetri/php-git/tree/0.4.1"
             },
-            "time": "2023-04-06T14:35:24+00:00"
+            "time": "2023-04-19T07:17:43+00:00"
         },
         {
             "name": "psr/cache",
