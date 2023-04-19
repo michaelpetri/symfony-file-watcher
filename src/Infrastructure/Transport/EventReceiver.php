@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MichaelPetri\SymfonyFileWatcher\Infrastructure\Transport;
 
+use MichaelPetri\Git\Exception\FileNotCommitted;
 use MichaelPetri\Git\GitRepositoryInterface;
 use MichaelPetri\Git\Value\File;
 use MichaelPetri\Git\Value\Status;
@@ -93,10 +94,16 @@ final class EventReceiver implements TransportInterface, SetupableTransportInter
     {
         $stamp = self::getStampFromEnvelope(FilenameStamp::class, $envelope);
 
-        $this->repository->commit(
-            'Successfully processed file',
-            File::from($stamp->filename)
-        );
+        $file = File::from($stamp->filename);
+
+        try {
+            $this->repository->commit(
+                'Successfully processed file',
+                $file
+            );
+        } catch (FileNotCommitted) {
+            $this->repository->reset($file);
+        }
     }
 
     public function reject(Envelope $envelope): void
