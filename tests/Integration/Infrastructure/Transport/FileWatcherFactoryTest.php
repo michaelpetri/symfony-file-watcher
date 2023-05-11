@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\MichaelPetri\SymfonyFileWatcher\Integration\Infrastructure\Transport;
 
+use MichaelPetri\Git\Value\Directory;
 use MichaelPetri\SymfonyFileWatcher\Infrastructure\Transport\EventReceiver;
 use MichaelPetri\SymfonyFileWatcher\Infrastructure\Transport\FileWatcherFactory;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +18,9 @@ final class FileWatcherFactoryTest extends TestCase
     {
         parent::setUp();
 
-        $this->factory = new FileWatcherFactory();
+        $this->factory = new FileWatcherFactory(
+            Directory::from('/tmp/')
+        );
     }
 
     public function testSupports(): void
