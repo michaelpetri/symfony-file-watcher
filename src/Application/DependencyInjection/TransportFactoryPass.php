@@ -16,7 +16,7 @@ final class TransportFactoryPass implements CompilerPassInterface
     {
         $basePathId = \sprintf('%s<%s>', Directory::class, 'symfony_file_watcher.base_path');
 
-        $projectDir = Directory::from($container->get('%kernel.project_dir%'));
+        $projectDir = Directory::from($container->getParameter('%kernel.project_dir%'));
 
         $container
             ->autowire($basePathId)
