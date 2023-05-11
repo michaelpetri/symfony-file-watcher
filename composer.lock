@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05013576c007b3e71b262fe09efbc176",
+    "content-hash": "cb42b4bde18a7707e17fdcdb685a0c0d",
     "packages": [
         {
             "name": "michaelpetri/php-generic-list",
@@ -54,16 +54,16 @@
         },
         {
             "name": "michaelpetri/php-git",
-            "version": "0.4.1",
+            "version": "0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/michaelpetri/php-git.git",
-                "reference": "353d14cb6cc090fa60caff651fee69784cef5b4e"
+                "reference": "263e3e881025d5358493b0e0bc4489b50aec29c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michaelpetri/php-git/zipball/353d14cb6cc090fa60caff651fee69784cef5b4e",
-                "reference": "353d14cb6cc090fa60caff651fee69784cef5b4e",
+                "url": "https://api.github.com/repos/michaelpetri/php-git/zipball/263e3e881025d5358493b0e0bc4489b50aec29c6",
+                "reference": "263e3e881025d5358493b0e0bc4489b50aec29c6",
                 "shasum": ""
             },
             "require": {
@@ -96,9 +96,9 @@
             "description": "Simple wrapper around git cli, based on symfony/process.",
             "support": {
                 "issues": "https://github.com/michaelpetri/php-git/issues",
-                "source": "https://github.com/michaelpetri/php-git/tree/0.4.1"
+                "source": "https://github.com/michaelpetri/php-git/tree/0.5.1"
             },
-            "time": "2023-04-19T07:17:43+00:00"
+            "time": "2023-05-11T11:57:35+00:00"
         },
         {
             "name": "psr/cache",
