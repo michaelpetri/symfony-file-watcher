@@ -19,7 +19,7 @@ final class TransportFactoryPass implements CompilerPassInterface
         $projectDir = Directory::from($container->getParameter('kernel.project_dir'));
 
         $container
-            ->autowire($basePathId)
+            ->autowire($basePathId, Directory::class)
             ->setFactory([Directory::class, 'from'])
             ->setArguments([
                 $projectDir->sub('var')->path
