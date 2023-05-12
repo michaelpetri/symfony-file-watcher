@@ -11,7 +11,8 @@ use MichaelPetri\Git\Value\Duration;
 final class Dsn
 {
     private const DEFAULT_OPTIONS = [
-        'timeout' => 60000
+        'timeout' => 60000,
+        'backOffTime' => 60000,
     ];
 
     private const ERROR = 'The given file watcher DSN "%s" is invalid: %s';
@@ -19,7 +20,8 @@ final class Dsn
 
     public function __construct(
         public readonly Directory $directory,
-        public readonly Duration $timeout
+        public readonly Duration $timeout,
+        public readonly Duration $backOffTime
     ) {
     }
 
@@ -53,13 +55,21 @@ final class Dsn
         // Use parsed timeout or default fallback.
         $timeout = (int) ($query['timeout'] ?? self::DEFAULT_OPTIONS['timeout']);
 
+        // Use parsed backoff time or default fallback.
+        $backOffTime = (int) ($query['backOffTime'] ?? self::DEFAULT_OPTIONS['backOffTime']);
+
         if (0 >= $timeout) {
             throw new \InvalidArgumentException(\sprintf(self::ERROR, $dsn, 'Timeout options must be positive int.'));
         }
 
+        if (0 >= $backOffTime) {
+            throw new \InvalidArgumentException(\sprintf(self::ERROR, $dsn, 'Back off time options must be positive int.'));
+        }
+
         return new self(
             Directory::from($path),
-            Duration::inMilliseconds($timeout)
+            Duration::inMilliseconds($timeout),
+            Duration::inMilliseconds($backOffTime)
         );
     }
 }
