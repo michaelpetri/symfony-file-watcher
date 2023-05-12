@@ -17,16 +17,24 @@ use Symfony\Component\Messenger\Stamp\StampInterface;
 use Symfony\Component\Messenger\Transport\SetupableTransportInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
+use function usleep;
+
 final class EventReceiver implements TransportInterface, SetupableTransportInterface
 {
+    /** @psalm-param positive-int $intervalInMilliSeconds */
     public function __construct(
-        public readonly GitRepositoryInterface $repository
+        public readonly GitRepositoryInterface $repository,
+        public readonly int $intervalInMilliSeconds = 1
     ) {
     }
 
     public function get(): iterable
     {
+        $needToSleep = true;
+
         foreach ($this->repository->status()->toArray() as $change) {
+            $needToSleep = false;
+
             switch ($change->index) {
                 case Status::ADDED:
                 case Status::MODIFIED:
@@ -87,6 +95,10 @@ final class EventReceiver implements TransportInterface, SetupableTransportInter
                         \sprintf('Unknown git index status "%s"', $change->index->name)
                     );
             }
+        }
+
+        if ($needToSleep) {
+            usleep($this->intervalInMilliSeconds);
         }
     }
 
