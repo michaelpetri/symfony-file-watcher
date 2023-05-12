@@ -6,6 +6,7 @@ namespace MichaelPetri\SymfonyFileWatcher\Infrastructure\Transport;
 
 use MichaelPetri\Git\Exception\FileNotCommitted;
 use MichaelPetri\Git\GitRepositoryInterface;
+use MichaelPetri\Git\Value\Duration;
 use MichaelPetri\Git\Value\File;
 use MichaelPetri\Git\Value\Status;
 use MichaelPetri\SymfonyFileWatcher\Domain\Event\FileChanged;
@@ -21,10 +22,10 @@ use function usleep;
 
 final class EventReceiver implements TransportInterface, SetupableTransportInterface
 {
-    /** @psalm-param positive-int $intervalInMilliSeconds */
+    /** @psalm-param positive-int $backOffIntervalInMilliSeconds */
     public function __construct(
         public readonly GitRepositoryInterface $repository,
-        public readonly int $intervalInMilliSeconds = 1
+        public readonly Duration $backOffTime
     ) {
     }
 
@@ -98,7 +99,8 @@ final class EventReceiver implements TransportInterface, SetupableTransportInter
         }
 
         if ($needToSleep) {
-            usleep($this->intervalInMilliSeconds);
+            $microseconds = self::coercePositiveInt((int) ($this->backOffTime->seconds  * 1000000));
+            usleep($microseconds);
         }
     }
 
@@ -156,5 +158,15 @@ final class EventReceiver implements TransportInterface, SetupableTransportInter
         }
 
         return $stamp;
+    }
+
+    /** @psalm-return positive-int */
+    private static function coercePositiveInt(int $value): int
+    {
+        if (0 >= $value) {
+            return 1;
+        }
+
+        return $value;
     }
 }

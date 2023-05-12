@@ -23,6 +23,8 @@ use Symfony\Component\Process\Process;
 /** @covers \MichaelPetri\SymfonyFileWatcher\Infrastructure\Transport\EventReceiver */
 final class EventReceiverTest extends TestCase
 {
+    private const BACK_OFF_TIME_IN_MILLISECONDS = 50;
+
     private Directory $directory;
     private GitRepositoryInterface $repository;
     private EventReceiver $receiver;
@@ -43,7 +45,10 @@ final class EventReceiverTest extends TestCase
             $this->directory->sub('.git'),
             Duration::inSeconds(60)
         );
-        $this->receiver = new EventReceiver($this->repository);
+        $this->receiver = new EventReceiver(
+            $this->repository,
+            Duration::inMilliseconds(self::BACK_OFF_TIME_IN_MILLISECONDS)
+        );
 
         $this->receiver->setup();
     }
@@ -84,6 +89,15 @@ final class EventReceiverTest extends TestCase
 
         // Ensure we don't see the event twice
         self::assertNoEvents($this->receiver);
+    }
+
+    public function testBackOffTimeIsUsed(): void
+    {
+        $start = \microtime(true);
+        self::assertEmpty([...$this->receiver->get()]);
+        $stop = \microtime(true);
+
+        self::assertGreaterThanOrEqual(self::BACK_OFF_TIME_IN_MILLISECONDS / 1000, $stop - $start);
     }
 
     public function testGetUpdatedEvent(): void

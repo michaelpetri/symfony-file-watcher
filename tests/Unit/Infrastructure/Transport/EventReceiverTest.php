@@ -6,6 +6,7 @@ namespace Tests\MichaelPetri\SymfonyFileWatcher\Unit\Infrastructure\Transport;
 
 use MichaelPetri\Git\Exception\FileNotCommitted;
 use MichaelPetri\Git\GitRepositoryInterface;
+use MichaelPetri\Git\Value\Duration;
 use MichaelPetri\Git\Value\File;
 use MichaelPetri\SymfonyFileWatcher\Domain\Event\FileCreated;
 use MichaelPetri\SymfonyFileWatcher\Infrastructure\Transport\EventReceiver;
@@ -24,7 +25,8 @@ final class EventReceiverTest extends TestCase
         $this->repository = $this->createMock(GitRepositoryInterface::class);
 
         $this->receiver = new EventReceiver(
-            $this->repository
+            $this->repository,
+            Duration::inMilliseconds(1)
         );
     }
 

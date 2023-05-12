@@ -28,7 +28,8 @@ final class FileWatcherFactory implements TransportFactoryInterface
                     ->sub('file-watcher-git')
                     ->sub(\sha1($dsn->directory->path) . '.git'),
                 $dsn->timeout
-            )
+            ),
+            $dsn->backOffTime
         );
     }
 
