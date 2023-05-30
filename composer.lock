@@ -1410,16 +1410,16 @@
         },
         {
             "name": "symfony/messenger",
-            "version": "v6.2.8",
+            "version": "v6.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/messenger.git",
-                "reference": "f54eef78d500309bbc51291f8a353b4b0afef8c1"
+                "reference": "6e749550d539f787023878fad675b744411db003"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/messenger/zipball/f54eef78d500309bbc51291f8a353b4b0afef8c1",
-                "reference": "f54eef78d500309bbc51291f8a353b4b0afef8c1",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/6e749550d539f787023878fad675b744411db003",
+                "reference": "6e749550d539f787023878fad675b744411db003",
                 "shasum": ""
             },
             "require": {
@@ -1477,7 +1477,7 @@
             "description": "Helps applications send and receive messages to/from other applications or via message queues",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/messenger/tree/v6.2.8"
+                "source": "https://github.com/symfony/messenger/tree/v6.2.11"
             },
             "funding": [
                 {
@@ -1493,7 +1493,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-14T15:00:05+00:00"
+            "time": "2023-05-13T09:33:33+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
