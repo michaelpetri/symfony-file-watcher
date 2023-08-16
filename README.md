@@ -6,18 +6,19 @@
 
 This package contains a file watcher based on [symfony/messenger](https://github.com/symfony/messenger) and [michaelpetri/php-git](https://github.com/michaelpetri/php-git).
 
-Since it is based on git it can emmit events for files even after it has been paused for a decent time. All changes will 
+Since it is based on git it can emmit events for files even after it has been paused for a decent time. All changes will
 trigger a `FileCreated`, `FileChanged` or `FileDeleted` event which then can be handled by an event handler.
 
 > **Note:**
 > Keep in mind that git is not good at handling binary files and using this package can lead to bloated disk usage!  
 
-## Installation:
-```
+## Installation
+
+```shell
 composer require michaelpetri/symfony-file-watcher 
 ```
 
-## Usage:
+## Usage
 
 ```yaml
 # messenger.yaml
@@ -31,7 +32,7 @@ bin/console messenger:setup
 bin/console messenger:consume my-file-watcher
 ```
 
-## Sponsor:
+## Sponsor
 
 [![Lyska.cloud](https://avatars.githubusercontent.com/u/82085619?s=400&u=bf1fb2d6dec05e5911a190964568903b7a795592&v=4)](https://lyska.cloud)
 
