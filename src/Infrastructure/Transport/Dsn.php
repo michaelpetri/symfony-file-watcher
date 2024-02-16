@@ -43,7 +43,9 @@ final class Dsn
         $path = $components['path'] ?? \realpath('.');
 
         // Resolve absolute real path.
-        if ($realPath = \realpath($path)) {
+        $realPath = \realpath($path);
+
+        if (\is_string($realPath)) {
             $path = $realPath;
         }
 

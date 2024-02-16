@@ -22,13 +22,13 @@ use function usleep;
 
 final class EventReceiver implements TransportInterface, SetupableTransportInterface
 {
-    /** @psalm-param positive-int $backOffIntervalInMilliSeconds */
     public function __construct(
         public readonly GitRepositoryInterface $repository,
         public readonly Duration $backOffTime
     ) {
     }
 
+    /** @psalm-return iterable<integer, Envelope> */
     public function get(): iterable
     {
         $needToSleep = true;

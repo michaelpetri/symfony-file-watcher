@@ -78,11 +78,7 @@ final class EventReceiverTest extends TestCase
         // Ensure we see a file created event
         self::assertEvents(
             [
-                Envelope::wrap(
-                    new FileCreated($file->toString())
-                )->with(
-                    new FilenameStamp($file->toString())
-                )
+                new FileCreated($file->toString())
             ],
             $this->receiver
         );
@@ -116,11 +112,7 @@ final class EventReceiverTest extends TestCase
         // Ensure we see a file changed event
         self::assertEvents(
             [
-                Envelope::wrap(
-                    new FileChanged($file->toString())
-                )->with(
-                    new FilenameStamp($file->toString())
-                )
+                new FileChanged($file->toString())
             ],
             $this->receiver
         );
@@ -145,11 +137,7 @@ final class EventReceiverTest extends TestCase
         // Ensure we see a file deleted event
         self::assertEvents(
             [
-                $event = Envelope::wrap(
-                    new FileDeleted($file->toString())
-                )->with(
-                    new FilenameStamp($file->toString())
-                )
+                new FileDeleted($file->toString())
             ],
             $this->receiver
         );
@@ -217,10 +205,19 @@ final class EventReceiverTest extends TestCase
         );
     }
 
-    /** @psalm-param FileCreated $events */
+    /** @psalm-param list<FileCreated|FileChanged|FileDeleted> $events */
     public static function assertEvents(array $events, EventReceiver $receiver): void
     {
-        self::assertEquals($events, [...$receiver->get()], 'Failed to assert that receiver has events.');
+        $envelops = \array_map(
+            static fn (FileCreated|FileChanged|FileDeleted $event): Envelope => Envelope::wrap(
+                $event
+            )->with(
+                new FilenameStamp($event->path)
+            ),
+            $events
+        );
+
+        self::assertEquals($envelops, [...$receiver->get()], 'Failed to assert that receiver has events.');
     }
 
     public static function assertNoEvents(EventReceiver $receiver): void
@@ -238,13 +235,11 @@ final class EventReceiverTest extends TestCase
         return File::from($path);
     }
 
-    /** @psalm-param non-empty-string $name */
     private function write(File $file, string $content = ''): void
     {
         \file_put_contents($file->toString(), $content);
     }
 
-    /** @psalm-param non-empty-string $name */
     private function delete(File|Directory $target): void
     {
         if ($target instanceof File) {
