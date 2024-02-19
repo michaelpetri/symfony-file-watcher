@@ -10,6 +10,7 @@ use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
+/** @implements TransportFactoryInterface<EventReceiver> */
 final class FileWatcherFactory implements TransportFactoryInterface
 {
     public function __construct(
