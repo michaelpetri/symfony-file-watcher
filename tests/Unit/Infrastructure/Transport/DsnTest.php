@@ -17,9 +17,25 @@ final class DsnTest extends TestCase
         self::assertEquals($expectedTimeoutInSeconds, Dsn::fromString($input)->timeout->seconds);
     }
 
+    /**
+     * @psalm-return iterable<array-key, array{
+     *    non-empty-string,
+     *    non-empty-string,
+     * }>|iterable<array-key, array{
+     *     non-empty-string,
+     *     non-empty-string,
+     *     positive-int
+     *  }>
+     */
     public static function validDsnProvider(): iterable
     {
-        yield 'no explicit path will use current directory' => ['watch://', \realpath('.')];
+        $path = \realpath('.');
+
+        if (!\is_string($path) || '' === $path) {
+            throw new \LogicException('\realpath(\'.\') must be non-empty-string');
+        }
+
+        yield 'no explicit path will use current directory' => ['watch://', $path];
         yield 'root path ' => ['watch:///', '/'];
         yield 'absolute path will be resolved to absolute path' => ['watch:///tmp/../tmp', '/tmp'];
         yield 'with timeout option' => ['watch:///tmp?timeout=300000', '/tmp', 300];
@@ -32,6 +48,12 @@ final class DsnTest extends TestCase
         Dsn::fromString($input);
     }
 
+    /**
+     * @psalm-return iterable<array-key, array{
+     *    non-empty-string,
+     *    \InvalidArgumentException
+     * }>
+     */
     public static function invalidDsnProvider(): iterable
     {
         yield 'doctrine dsn' => [

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
-  <file src="src/Infrastructure/Transport/EventReceiver.php">
-    <InvalidReturnType occurrences="1">
-      <code>iterable</code>
-    </InvalidReturnType>
+<files psalm-version="5.22.1@e9dad66e11274315dac27e08349c628c7d6a1a43">
+  <file src="src/Application/FileWatcherBundle.php">
+    <UnusedClass>
+      <code><![CDATA[FileWatcherBundle]]></code>
+    </UnusedClass>
   </file>
 </files>

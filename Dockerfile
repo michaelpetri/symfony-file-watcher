@@ -15,4 +15,6 @@ RUN apk add --no-cache \
         unzip \
         git \
  && install-php-extensions \
-        xdebug
+        xdebug \
+        # Performance boot for psalm
+        opcache
