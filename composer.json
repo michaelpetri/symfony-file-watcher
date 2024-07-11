@@ -10,7 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "~8.1.0 || ~8.2.0",
-        "symfony/messenger": "^6.2.7",
+        "symfony/messenger": "^7.1.2",
         "symfony/process": "^6.2.7",
         "symfony/dependency-injection": "^6.2.7",
         "symfony/framework-bundle": "^6.2.7",
